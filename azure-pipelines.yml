@@ -15,13 +15,16 @@ steps:
   clean: true
 - bash: |
    sudo apt install -y openslide-tools python3 python3-openslide
-   ls -la .
    python3 deepzoom_tile.py test.svs
   displayName: 'Extract svs'
-- task: AzureFileCopy@4
+
+- task: AzureCLI@2
   inputs:
-    SourcePath: '*'
     azureSubscription: 'Visual Studio Enterprise(8b90224d-e668-44e0-966d-eaccab1d5e63)'
-    Destination: 'AzureBlob'
-    storage: 'svsdemo'
-    ContainerName: '$web'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az storage blob upload-batch \ 
+      --account-name svsdemo \ 
+      --source . \ 
+      --destination '$web'
