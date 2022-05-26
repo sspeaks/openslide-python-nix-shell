@@ -27,10 +27,8 @@ steps:
   displayName: "Set Variable"
 - bash: |
     mkdir static
-    mv test_files static
     mv index.html static
     mv images static
-    mv test.dzi static
   displayName: 'Copy index'
   
 - bash: |
