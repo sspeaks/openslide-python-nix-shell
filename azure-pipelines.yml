@@ -44,4 +44,14 @@ steps:
     azureSubscription: 'Visual Studio Enterprise(8b90224d-e668-44e0-966d-eaccab1d5e63)'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
+    inlineScript: 'az storage blob delete-batch --account-name svsdemo -s ''$web'' --pattern ''test_files/*'' && az storage blob delete-batch --account-name svsdemo -s ''$web'' --pattern ''test.dzi'''
+  condition: eq(variables.runExtract, 'true')
+  displayName: "Delete old blobs"
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise(8b90224d-e668-44e0-966d-eaccab1d5e63)'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
     inlineScript: 'az storage blob upload-batch --account-name svsdemo --source static --destination ''$web'' --overwrite'
+  displayName: "Copy static folder over"
