@@ -17,16 +17,18 @@ steps:
     val=$(git diff HEAD HEAD~1 --name-only | grep test.svs)
     if [ -z "$var" ]; then
        echo "##vso[task.setvariable variable=runExtract;]true"
+       echo "test.svs was changed, running extract"
     else
        echo "##vso[task.setvariable variable=runExtract;]false"
+       echo "test.svs wasn't changed, not running extract"
     fi
+  displayName: "Set Variable"
 - bash: |
-   
-   mkdir static
-   mv test_files static
-   mv index.html static
-   mv images static
-   mv test.dzi static
+    mkdir static
+    mv test_files static
+    mv index.html static
+    mv images static
+    mv test.dzi static
   displayName: 'Copy index'
   
 - bash: |
