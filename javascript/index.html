@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SVS slide proof of concept</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/3.0.0/openseadragon.min.js"
+        integrity="sha512-Dq5iZeGNxm7Ql/Ix10sugr98niMRyuObKlIzKN1SzUysEXBxti479CTsCiTV00gFlDeDO3zhBsyCOO+v6QVwJw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div id="openseadragon1" style="width: 1920px; height: 1080px;"></div>
+    <script>
+        var viewer = OpenSeadragon({
+            id: "openseadragon1",
+            prefixUrl: "images/",
+            tileSources: "test.dzi"
+        });
+    </script>
+</body>
+
+</html>
