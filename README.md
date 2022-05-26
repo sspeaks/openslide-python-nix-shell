@@ -6,7 +6,7 @@ First, install python 3.8 or greater, then run the script below
 ### For example, on Ubuntu (Or WSL Ubuntu, in my case)
 ```bash
 sudo apt update
-sudo apt install python3-openslide
+sudo apt install -y openslide-tools python3 python3-openslide
 python3 deepzoom_tile.py test.svs
 ```
 This allows for the index.html to fetch the appropriate files.
