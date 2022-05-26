@@ -15,9 +15,9 @@ steps:
   clean: true
 - bash: |
     echo "Changed files: "
-    git diff HEAD HEAD~1
+    git diff HEAD HEAD~1 --name-only
     val=$(git diff HEAD HEAD~1 --name-only | grep test.svs)
-    if [ -z "$var" ]; then
+    if [[ $val = *[^[:space:]]* ]]; then
        echo "##vso[task.setvariable variable=runExtract;]true"
        echo "test.svs was changed, running extract"
     else
