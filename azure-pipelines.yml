@@ -10,9 +10,12 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- checkout: self
+  lfs: true
+  clean: true
 - bash: |
-   apt install openslide python3
-   pip install openslide-python
+   sudo apt install -y openslide-tools python3 python3-openslide
+   ls -la .
    python3 deepzoom_tile.py test.svs
   displayName: 'Extract svs'
 - task: AzureFileCopy@4
