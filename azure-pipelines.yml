@@ -14,39 +14,10 @@ steps:
   lfs: true
   clean: true
 - bash: |
-    echo "Changed files: "
-    git diff HEAD HEAD~1 --name-only
-    val=$(git diff HEAD HEAD~1 --name-only | grep test.svs)
-    if [[ $val = *[^[:space:]]* ]]; then
-       echo "##vso[task.setvariable variable=runExtract;]true"
-       echo "test.svs was changed, running extract"
-    else
-       echo "##vso[task.setvariable variable=runExtract;]false"
-       echo "test.svs wasn't changed, not running extract"
-    fi
-  displayName: "Set Variable"
-- bash: |
     mkdir static
     mv index.html static
     mv images static
   displayName: 'Copy index'
-  
-- bash: |
-    sudo apt install -y openslide-tools python3 python3-openslide
-    python3 deepzoom_tile.py test.svs
-    mv test_files static
-    mv test.dzi static
-  displayName: "Extract and copy"
-  condition: eq(variables.runExtract, 'true')
-
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'Visual Studio Enterprise(8b90224d-e668-44e0-966d-eaccab1d5e63)'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'az storage blob delete-batch --account-name svsdemo -s ''$web'' --pattern ''test_files/*'' --delete-snapshots include; az storage blob delete-batch --account-name svsdemo -s ''$web'' --pattern ''test.dzi'' --delete-snapshots include; exit 0'
-  condition: eq(variables.runExtract, 'true')
-  displayName: "Delete old blobs"
 
 - task: AzureCLI@2
   inputs:
