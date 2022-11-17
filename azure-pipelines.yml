@@ -21,7 +21,7 @@ steps:
 
 - task: AzureCLI@2
   inputs:
-    azureSubscription: 'Visual Studio Enterprise(8b90224d-e668-44e0-966d-eaccab1d5e63)'
+    azureSubscription: 'Visual Studio Enterprise Subscription(498cf685-5b69-4577-acfd-6a93ccf82f13)'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: 'az storage blob upload-batch --account-name svsdemo --source static --destination ''$web'' --overwrite'
